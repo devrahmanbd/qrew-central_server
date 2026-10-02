@@ -1,0 +1,18 @@
+[Unit]
+Description=Workflow Central 24/7 Sync Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/workflow_server
+ExecStart=/usr/local/bin/uvicorn central_server.api:app --host 0.0.0.0 --port 8765
+Restart=always
+RestartSec=5
+Environment=SERVER_DATA_DIR=/var/lib/workflow_server/data
+Environment=PYTHONPATH=/opt/workflow_server
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  workflow-central-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: workflow_central_server
+    restart: always
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - SERVER_DATA_DIR=/app/data
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENROUTER_EMBED_MODEL=nvidia/nemotron-3-embed-1b:free
+      - OPENROUTER_THINKING_MODEL=nvidia/nemotron-3-ultra-550b-a55b:free
